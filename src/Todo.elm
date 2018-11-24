@@ -110,13 +110,6 @@ subscriptions model =
 
 -- VIEW
 
-numberStyle : Int -> List (Html.Attribute msg)
-numberStyle n =
-  [ style "width" "5em"
-  , style "display" "inline-block"
-  , style "text-align" "center"
-  ]
-
 view : Model -> Html Msg
 view model =
   div []
