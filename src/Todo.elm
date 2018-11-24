@@ -4,6 +4,8 @@ import Html.Events exposing (on, onClick, onInput, keyCode)
 import Html.Attributes exposing (checked, style, placeholder, value, type_)
 import Json.Decode as Json
 
+import Events exposing (onEnter)
+
 -- MAIN
 
 main =
@@ -142,14 +144,3 @@ clearTasksButton model =
     button [ onClick ClearComplete ] [ text "Clear completed tasks" ]
   else
     text ""
-
-onEnter : Msg -> Attribute Msg
-onEnter msg =
-  let
-    isEnter code =
-      if code == 13 then
-        Json.succeed msg
-      else
-        Json.fail "not ENTER"
-  in
-  on "keydown" (Json.andThen isEnter keyCode)
