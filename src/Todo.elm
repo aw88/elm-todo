@@ -1,7 +1,8 @@
 import Browser
-import Html exposing (Html, button, div, span, text, input, h1, ul, li, label)
-import Html.Events exposing (onClick, onInput)
+import Html exposing (Attribute, Html, button, div, span, text, input, h1, ul, li, label)
+import Html.Events exposing (on, onClick, onInput, keyCode)
 import Html.Attributes exposing (checked, style, placeholder, value, type_)
+import Json.Decode as Json
 
 -- MAIN
 
@@ -114,7 +115,7 @@ view : Model -> Html Msg
 view model =
   div []
     [ h1 [] [ text "Todo?" ]
-    , input [ placeholder "What do you need to do?", value model.newTodo, onInput UpdateNewTodo ] []
+    , input [ placeholder "What do you need to do?", value model.newTodo, onInput UpdateNewTodo, onEnter CreateTodo ] []
     , button [ onClick CreateTodo ] [ text "Create" ]
     , ul [] (List.map renderTodo model.todos)
     , clearTasksButton model
@@ -141,3 +142,14 @@ clearTasksButton model =
     button [ onClick ClearComplete ] [ text "Clear completed tasks" ]
   else
     text ""
+
+onEnter : Msg -> Attribute Msg
+onEnter msg =
+  let
+    isEnter code =
+      if code == 13 then
+        Json.succeed msg
+      else
+        Json.fail "not ENTER"
+  in
+  on "keydown" (Json.andThen isEnter keyCode)
