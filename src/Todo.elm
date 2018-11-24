@@ -117,7 +117,7 @@ view model =
     , input [ placeholder "What do you need to do?", value model.newTodo, onInput UpdateNewTodo ] []
     , button [ onClick CreateTodo ] [ text "Create" ]
     , ul [] (List.map renderTodo model.todos)
-    , button [ onClick ClearComplete ] [ text "Clear completed tasks" ]
+    , clearTasksButton model
     ]
 
 statusToBool : TodoStatus -> Bool
@@ -134,3 +134,10 @@ renderTodo todo =
       , span [] [ text todo.label ]
       ]
     ]
+
+clearTasksButton : Model -> Html Msg
+clearTasksButton model =
+  if List.length (List.filter (\todo -> todo.status == Complete) model.todos) > 0 then
+    button [ onClick ClearComplete ] [ text "Clear completed tasks" ]
+  else
+    text ""
