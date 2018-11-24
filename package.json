@@ -1,0 +1,23 @@
+{
+  "name": "elm-todo",
+  "version": "1.0.0",
+  "description": "A simple todo list in Elm",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run watch & npm run serve",
+    "serve": "http-server",
+    "watch:elm": "nodemon -e elm --watch src/**/*.elm -x \"npm run build:development\"",
+    "watch": "npm run watch:elm",
+    "build:base": "elm make src/Todo.elm --output=out/elm.js",
+    "build:development": "npm run build:base -- --debug",
+    "build:production": "npm run build:base -- --optimize",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Alex Walton",
+  "license": "ISC",
+  "devDependencies": {
+    "elm": "^0.19.0-bugfix2",
+    "http-server": "^0.11.1",
+    "nodemon": "^1.18.6"
+  }
+}
