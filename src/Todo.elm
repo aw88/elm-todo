@@ -58,6 +58,7 @@ type Msg
   = UpdateNewTodo String
   | ToggleTodo Int
   | CreateTodo
+  | ClearComplete
 
 toggleTodo : List Todo -> Int -> List Todo
 toggleTodo list idToToggle =
@@ -92,6 +93,12 @@ update msg model =
         todos = toggleTodo model.todos id
       in
       ({ model | todos = todos }, Cmd.none)
+    
+    ClearComplete ->
+      let
+          incomplete = List.filter (\todo -> todo.status == Incomplete) model.todos
+      in
+      ({ model | todos = incomplete }, Cmd.none)
 
 
 -- SUBSCRIPTIONS
@@ -117,6 +124,7 @@ view model =
     , input [ placeholder "What do you need to do?", value model.newTodo, onInput UpdateNewTodo ] []
     , button [ onClick CreateTodo ] [ text "Create" ]
     , ul [] (List.map renderTodo model.todos)
+    , button [ onClick ClearComplete ] [ text "Clear completed tasks" ]
     ]
 
 statusToBool : TodoStatus -> Bool
