@@ -1,3 +1,5 @@
+module Todo exposing (..)
+
 import Browser
 import Html exposing (Attribute, Html, button, div, span, text, input, h1, ul, li, label)
 import Html.Events exposing (on, onClick, onInput, keyCode)
@@ -21,8 +23,8 @@ main =
 
 type TodoStatus = Complete | Incomplete
 
-not : TodoStatus -> TodoStatus
-not status =
+notTodo : TodoStatus -> TodoStatus
+notTodo status =
   case status of
     Complete -> Incomplete
     Incomplete -> Complete
@@ -63,13 +65,13 @@ type Msg
   | CreateTodo
   | ClearComplete
 
-toggleTodo : List Todo -> Int -> List Todo
-toggleTodo list idToToggle =
+toggleTodo : Int -> List Todo -> List Todo
+toggleTodo idToToggle list =
   let
     toggle : Todo -> Todo
     toggle todo =
       if todo.id == idToToggle then
-        { todo | status = not todo.status }
+        { todo | status = notTodo todo.status }
       else
         todo
   in
@@ -93,7 +95,7 @@ update msg model =
 
     ToggleTodo id ->
       let
-        todos = toggleTodo model.todos id
+        todos = toggleTodo id model.todos
       in
       ({ model | todos = todos }, Cmd.none)
     

@@ -11,12 +11,13 @@
     "build:base": "elm make src/Todo.elm --output=out/elm.js",
     "build:development": "npm run build:base -- --debug",
     "build:production": "npm run build:base -- --optimize",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "elm-test"
   },
   "author": "Alex Walton",
   "license": "ISC",
   "devDependencies": {
     "elm": "^0.19.0-bugfix2",
+    "elm-test": "^0.19.0-rev3",
     "http-server": "^0.11.1",
     "nodemon": "^1.18.6"
   }
