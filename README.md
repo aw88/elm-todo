@@ -1,6 +1,6 @@
-# Elm Counter
+# Elm Todo
 
-A simple counter written in Elm.
+A simple todo list written in Elm.
 
 ## Getting started
 
